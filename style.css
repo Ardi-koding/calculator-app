@@ -1,0 +1,86 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Roboto", sans-serif;
+	font-weight: 400;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+}
+
+main {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+	width: min(auto, 50%);
+	background-color: lightgray;
+	font-size: 1.5rem;
+
+	.items {
+		width: 75px;
+		height: 75px;
+		border: 1px solid black;
+		background-color: #fff;
+		display: grid;
+		place-content: center;
+		/* padding: 1em; */
+	}
+
+	.operators {
+		background-color: whitesmoke;
+	}
+
+	.show {
+		background-color: black;
+		color: white;
+		grid-column: 1 / 5;
+		width: 100%;
+		justify-content: end;
+		font-size: 2rem;
+	}
+
+	.show {
+		padding: 0 0.5em;
+	}
+
+	.result {
+		grid-row: 3 / 7;
+		grid-column: 4 / 5;
+		height: 100%;
+		background-color: rgb(250, 122, 76);
+	}
+
+	.dot {
+		align-items: end;
+	}
+
+	.numbers:hover,
+	.operators:hover,
+	.dot:hover,
+	.reset:hover {
+		cursor: pointer;
+		background-color: rgb(186, 186, 186);
+	}
+
+	.result:hover {
+		background-color: rgb(182, 89, 55);
+	}
+
+	.numbers:active,
+	.operators:active,
+	.dot:active,
+	.reset:active {
+		background-color: rgb(192, 176, 176);
+	}
+
+	.result:active {
+		background-color: rgb(250, 122, 76);
+	}
+}
