@@ -87,7 +87,7 @@ result.addEventListener("click", () => {
 	showCal.textContent = String(firstInput);
 	userOperator = null;
 	console.log(firstInput);
-	count = 2;
+	count = 0;
 });
 
 /* ---------------- */
