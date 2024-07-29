@@ -7,18 +7,60 @@ for (let i = 0; i < 10; i++) {
 numbersList.push(numbersHTML[i])
 } */
 
+// Get Element From DOM
 let numbersHTML = document.getElementsByClassName("numbers");
 let numbersList = [...numbersHTML];
 let numbersData = numbersList.map((e) => e.textContent);
 
-let reset = document.querySelector(".reset");
+let operators = [...document.querySelectorAll(".operators")];
 
+let reset = document.querySelector(".reset");
 let showCal = document.querySelector(".show");
 
+// Calculator
+let count = 0;
+let firstInput = null;
+let secondInput = null;
+let userOperator = null;
+
+function calculator() {
+	if (userOperator == "+") {
+		firstInput += secondInput;
+	} else if (userOperator == "-") {
+		firstInput -= secondInput;
+	} else if (userOperator == "*") {
+		firstInput *= secondInput;
+	} else if (userOperator == "/") {
+		firstInput /= secondInput;
+	}
+}
+
+// Event Listener
 numbersList.forEach((element) => {
 	element.addEventListener("click", () => {
-		showCal.textContent = element.textContent;
 		reset.textContent = "C";
+
+		if (count == 0) {
+			firstInput = String(element.textContent);
+			showCal.textContent = String(element.textContent);
+			count++;
+		} else if (count != 0) {
+			firstInput += String(element.textContent);
+			showCal.textContent += String(element.textContent);
+			console.log(firstInput);
+		}
+		// else if (firstInput != null) {
+		// 	secondInput = String(element.textContent);
+		// } else if ((firstInput != null) & (secondInput != null)) {
+		// 	calculator()
+		// }
+	});
+});
+
+operators.forEach((element) => {
+	element.addEventListener("click", () => {
+		userOperator = element.textContent;
+		count++;
 	});
 });
 
@@ -26,53 +68,38 @@ reset.addEventListener("click", () => {
 	if (reset.textContent === "C") {
 		reset.textContent = "AC";
 		showCal.textContent = 0;
+		count = 0;
+		firstInput = null;
+		// console.log(firstInput)
 	}
-})
+});
 
-function calculator() {
-	let count = 0;
+/* ---------------- */
+
+function calculator2() {
 	let firstInput;
-	while (true) {
-		if (count === 0) {
-			firstInput = Number(prompt("angka pertama: "));
-			while (isNaN(firstInput)) {
-				console.log("Please, enter a valid number");
-				firstInput = Number(prompt("angka pertama: "));
-			}
-		}
-		let userOperator = prompt("masukkan operatormu: ");
-
-		if (userOperator === "=") {
-			console.log(firstInput);
-			break;
-		}
-
-		let secondInput = Number(prompt("angka kedua: "));
-		while (isNaN(secondInput)) {
-			console.log("Please enter a valid number");
-			secondInput = Number(prompt("angka kedua"));
-		}
-
-		if (userOperator === "+") {
-			firstInput += secondInput;
-			console.log("angka pertama:", firstInput);
-		} else if (userOperator == "-") {
-			firstInput -= secondInput;
-			console.log("angka pertama:", firstInput);
-		} else if (userOperator == "*") {
-			firstInput *= secondInput;
-			console.log("angka pertama:", firstInput);
-			console.log(typeof firstInput);
-		} else if (userOperator == "/") {
-			firstInput /= secondInput;
-			console.log("angka pertama:", firstInput);
-		} else {
-			console.log("Not an operator!");
-			continue;
-		}
-		count++;
-		console.log(count);
+	if (count === 0) {
+		firstInput = element.textContent;
 	}
+
+	if (userOperator === "+") {
+		firstInput += secondInput;
+		console.log("angka pertama:", firstInput);
+	} else if (userOperator == "-") {
+		firstInput -= secondInput;
+		console.log("angka pertama:", firstInput);
+	} else if (userOperator == "*") {
+		firstInput *= secondInput;
+		console.log("angka pertama:", firstInput);
+		console.log(typeof firstInput);
+	} else if (userOperator == "/") {
+		firstInput /= secondInput;
+		console.log("angka pertama:", firstInput);
+	} else {
+		console.log("Not an operator!");
+	}
+	count++;
+	console.log(count);
 }
 
 // calculator();
