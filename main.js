@@ -13,27 +13,18 @@ let numbersList = [...numbersHTML];
 let numbersData = numbersList.map((e) => e.textContent);
 
 let operators = [...document.querySelectorAll(".operators")];
+console.log(operators);
 
 let reset = document.querySelector(".reset");
 let showCal = document.querySelector(".show");
 
-// Calculator
+let result = document.querySelector(".result");
+
+// Variables
 let count = 0;
 let firstInput = null;
 let secondInput = null;
 let userOperator = null;
-
-function calculator() {
-	if (userOperator == "+") {
-		firstInput += secondInput;
-	} else if (userOperator == "-") {
-		firstInput -= secondInput;
-	} else if (userOperator == "*") {
-		firstInput *= secondInput;
-	} else if (userOperator == "/") {
-		firstInput /= secondInput;
-	}
-}
 
 // Event Listener
 numbersList.forEach((element) => {
@@ -43,24 +34,31 @@ numbersList.forEach((element) => {
 		if (count == 0) {
 			firstInput = String(element.textContent);
 			showCal.textContent = String(element.textContent);
-			count++;
-		} else if (count != 0) {
+			console.log(firstInput);
+			count = 1;
+		} else if (count == 1) {
 			firstInput += String(element.textContent);
 			showCal.textContent += String(element.textContent);
-			console.log(firstInput);
+			console.log("first input =", firstInput);
+		} else if (count == 2) {
+			showCal.textContent = null;
+			secondInput = String(element.textContent);
+			showCal.textContent = String(element.textContent);
+			console.log(secondInput);
+			count = 3;
+		} else {
+			secondInput += String(element.textContent);
+			showCal.textContent += String(element.textContent);
+			console.log("second input =", secondInput);
 		}
-		// else if (firstInput != null) {
-		// 	secondInput = String(element.textContent);
-		// } else if ((firstInput != null) & (secondInput != null)) {
-		// 	calculator()
-		// }
 	});
 });
 
 operators.forEach((element) => {
 	element.addEventListener("click", () => {
 		userOperator = element.textContent;
-		count++;
+		console.log(userOperator, typeof userOperator);
+		count = 2;
 	});
 });
 
@@ -69,9 +67,27 @@ reset.addEventListener("click", () => {
 		reset.textContent = "AC";
 		showCal.textContent = 0;
 		count = 0;
-		firstInput = null;
-		// console.log(firstInput)
 	}
+});
+
+result.addEventListener("click", () => {
+	firstInput = Number(firstInput);
+	secondInput = Number(secondInput);
+	if (userOperator == "+") {
+		firstInput += secondInput;
+	} else if (userOperator == "-") {
+		firstInput -= secondInput;
+	} else if (userOperator == "x") {
+		firstInput *= secondInput;
+	} else if (userOperator == "÷") {
+		firstInput /= secondInput;
+	} else {
+		console.log("its not working");
+	}
+	showCal.textContent = String(firstInput);
+	userOperator = null;
+	console.log(firstInput);
+	count = 2;
 });
 
 /* ---------------- */
